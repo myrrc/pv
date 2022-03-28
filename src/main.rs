@@ -1,5 +1,5 @@
 use std::io;
-extern crate pv;
+use crate::State;
 
 //fn read_and_parse_file(file_name: &str) {
 //    fs::read_to_string(file_name).map(|contents| lex(contents))?;
@@ -15,7 +15,7 @@ fn main() -> io::Result<()> {
         "Expected one argument: path to markdown presentation"
     );
 
-    let mut state = pv::State::new(&args[1])?;
+    let mut state = State::new(&args[1])?;
 
     state.term_loop();
 
