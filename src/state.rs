@@ -3,7 +3,7 @@ use std::io::{self, Stdout, Write};
 use termion::input::TermRead;
 use termion::raw::IntoRawMode;
 
-mod write_tokens;
+use crate::write_tokens;
 
 pub struct State {
     current_page: usize,

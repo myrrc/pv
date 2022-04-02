@@ -15,16 +15,16 @@ pub fn write_aligned(text: &str, stdout: &mut impl io::Write, align: Alignment) 
 
     match align {
         Alignment::Center => write!(stdout, "{:^1$}", text, width),
-        Alignment::Right => write!(stdout, "{:>1$}", text, width)
+        Alignment::Right => write!(stdout, "{:>1$}", text, width),
     }
 }
 
 fn write_token(token: &Token, stdout: &mut impl io::Write) -> io::Result<()> {
     // corner case: in WSL terminal we get \n but need \r\n, can't use writeln due to that.
-    let newline: &str = "\r\n";
+    const NEWLINE: &str = "\r\n";
 
     match token {
-        Newline => write!(stdout, "{}", newline)?,
+        Newline => write!(stdout, "{}", NEWLINE)?,
 
         Header(level, text, _) => {
             if level == &1 {
@@ -34,7 +34,7 @@ fn write_token(token: &Token, stdout: &mut impl io::Write) -> io::Result<()> {
             }
         }
 
-        Plaintext(text) => write!(stdout, "{}", text.replace("\n", "\r\n"))?,
+        Plaintext(text) => write!(stdout, "{}", text.replace('\n', NEWLINE))?,
 
         Italic(text) => write!(stdout, "{}{}{}", StyleItalic, text, Reset)?,
         Bold(text) => write!(stdout, "{}{}{}", StyleBold, text, Reset)?,
@@ -42,13 +42,12 @@ fn write_token(token: &Token, stdout: &mut impl io::Write) -> io::Result<()> {
         Strikethrough(text) => write!(stdout, "{}{}{}", CrossedOut, text, Reset)?,
 
         UnorderedListEntry(text) | OrderedListEntry(text) => {
-            write!(stdout, "* {}{}", text, newline)?
+            write!(stdout, "* {}{}", text, NEWLINE)?
         }
 
         Code(text) => write!(stdout, "{}{}{}", Bg(color::Green), text, Bg(color::Reset))?,
         //CodeBlock(text, lang) => todo!(),
-
-        BlockQuote(.., text) => write!(stdout, "> {}{}", text, newline)?,
+        BlockQuote(.., text) => write!(stdout, "> {}{}", text, NEWLINE)?,
 
         //Image(_, _) => todo!(),
         //Link(_, _, _) => todo!(),
