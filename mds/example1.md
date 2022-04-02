@@ -1,34 +1,33 @@
 # My presentation (Header)
 
-* John Doe
-* john@doe.net
+* John Doe (yeah, the author; note the alignment on front page)
+* [mailto:john@doe.net](john@doe.net)
 * [https://john.doe](john.doe)
 
-## Slide 1
+## Slide 2
 
 Paragraphs are separated by a blank line.
 
 2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
 look like:
 
-  * this one
-  * that one
-  * the other one
+* this one
+* that one
+* the other one
 
-Note that --- not considering the asterisk --- the actual text
-content starts at 4-columns in.
+## Slide 3
 
 > Block quotes are
 > written like so.
 >
 > They can span multiple paragraphs,
-> if you like.
+> if you like (c) Some Famous Dude.
 
 Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
 in chapters 12--14"). Three dots ... will be converted to an ellipsis.
 Unicode is supported. ☺
 
-## Slide 2
+## Slide 4
 
 Here's a numbered list:
 
@@ -36,23 +35,7 @@ Here's a numbered list:
  2. second item
  3. third item
 
-Note again how the actual text starts at 4 columns in (4 characters
-from the left side). Here's a code sample:
-
-    # Let me re-iterate ...
-    for i in 1 .. 10 { do-something(i) }
-
-As you probably guessed, indented 4 spaces. By the way, instead of
-indenting the block, you can use delimited blocks, if you like:
-
-```
-define foobar() {
-    print "Welcome to flavor country!";
-}
-```
-
-(which makes copying & pasting easier). You can optionally mark the
-delimited block for Pandoc to syntax highlight it:
+and some code:
 
 ```python
 import time
@@ -63,7 +46,7 @@ for i in range(10):
     print(i)
 ```
 
-### An h3 header
+### Slide 5 (a sub-sub-header)
 
 Now a nested list:
 
@@ -88,6 +71,9 @@ Now a nested list:
 
     Do not bump wooden spoon or it will fall.
 
+
+## Slide 6
+
 Notice again how text always lines up on 4-space indents (including
 that last line which continues item 3 above).
 
@@ -96,6 +82,9 @@ doc](local-doc.html), and to a [section heading in the current
 doc](#an-h2-header). Here's a footnote [^1].
 
 [^1]: Some footnote text.
+
+
+## Slide 7
 
 Tables can look like this:
 
@@ -107,8 +96,7 @@ Cinderella       11  glass         transparent
 
 Table: Shoes sizes, materials, and colors.
 
-(The above is the caption for the table.) Pandoc also supports
-multi-line tables:
+## Slide 8
 
 --------  -----------------------
 Keyword   Text
@@ -122,9 +110,7 @@ green     Leaves, grass, frogs
           not easy being.
 --------  -----------------------
 
-A horizontal rule follows.
-
-***
+## Slide 9
 
 Here's a definition list:
 
@@ -146,9 +132,13 @@ Here's a "line block" (note how whitespace is honored):
 |   Line too
 | Line tree
 
+## Slide 10
+
 and images can be specified like so:
 
 ![example image](example-image.jpg "An exemplary image")
+
+## Slide 11
 
 Inline math equation: $\omega = d\phi / dt$. Display
 math should get its own line like so:

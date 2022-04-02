@@ -1,37 +1,39 @@
 use mini_markdown::lexer::Token::{self, *};
 use std::io;
-
 use termion::color::{self, Bg};
-use termion::cursor::Goto;
 use termion::style::{Bold as StyleBold, CrossedOut, Italic as StyleItalic, Reset};
 
 pub enum Alignment {
+    Left,
     Center,
     Right,
 }
 
-pub fn write_aligned(text: &str, stdout: &mut impl io::Write, align: Alignment) -> io::Result<()> {
+pub fn write_str(text: &str, stdout: &mut impl io::Write, align: Alignment) -> io::Result<()> {
     let width = termion::terminal_size()?.0 as usize;
 
     match align {
+        Alignment::Left => write!(stdout, "{}", text),
         Alignment::Center => write!(stdout, "{:^1$}", text, width),
         Alignment::Right => write!(stdout, "{:>1$}", text, width),
     }
 }
 
-fn write_token(token: &Token, stdout: &mut impl io::Write) -> io::Result<()> {
-    // corner case: in WSL terminal we get \n but need \r\n, can't use writeln due to that.
-    const NEWLINE: &str = "\r\n";
+// corner case: in WSL terminal we get \n but need \r\n, can't use writeln due to that.
+const NEWLINE: &str = "\r\n";
 
+pub fn write_token(token: &Token, stdout: &mut impl io::Write) -> io::Result<()> {
     match token {
         Newline => write!(stdout, "{}", NEWLINE)?,
 
         Header(level, text, _) => {
             if level == &1 {
-                write_aligned(text, stdout, Alignment::Center)?;
+                write_str(text, stdout, Alignment::Center)?;
             } else {
                 write!(stdout, "{}", text)?;
             }
+
+            write!(stdout, "{}", NEWLINE)?;
         }
 
         Plaintext(text) => write!(stdout, "{}", text.replace('\n', NEWLINE))?,
@@ -56,16 +58,6 @@ fn write_token(token: &Token, stdout: &mut impl io::Write) -> io::Result<()> {
         //TaskListItem(_, _) => todo!(),
         //Footnote(_, _) => todo!(),
         _ => (),
-    }
-
-    Ok(())
-}
-
-pub fn write(tokens: &[Token], stdout: &mut impl io::Write) -> io::Result<()> {
-    write!(stdout, "{}{}", termion::clear::All, Goto(1, 1))?;
-
-    for token in tokens {
-        write_token(token, stdout)?;
     }
 
     Ok(())
