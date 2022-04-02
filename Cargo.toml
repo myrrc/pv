@@ -3,12 +3,16 @@ name = "pv"
 version = "0.0.1"
 edition = "2021"
 authors = ["Mike Kot <to@myrrc.dev>"]
+description = "Lightweight Markdown presentations viewer in your terminal"
+readme = "README.md"
+repository = "https://github.com/myrrc/pv/"
 
 [profile.release]
 opt-level = "z"
-lto = "thin"
+lto = true
 panic = "abort"
 strip = true
+# upx ./target/release/pv
 
 [dependencies]
 termion = "1.5.6"
