@@ -12,7 +12,6 @@ opt-level = "z"
 lto = true
 panic = "abort"
 strip = true
-# upx ./target/release/pv
 
 [dependencies]
 termion = "1.5.6"
