@@ -5,10 +5,10 @@ edition = "2021"
 authors = ["Mike Kot <to@myrrc.dev>"]
 
 [profile.release]
-opt-level = 3
+opt-level = "z"
 lto = "thin"
-codegen-units = 1
 panic = "abort"
+strip = true
 
 [dependencies]
 termion = "1.5.6"
